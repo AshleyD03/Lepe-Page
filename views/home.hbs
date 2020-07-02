@@ -3,9 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Home Page</title>
+    <title>Home Page</title>
+    <link rel="stylesheet" href="public/style/home.css">
 </head>
 <body>
     <h1>home page... bleh</h1>
+
+    <div id="news body">
+        <ul>
+            {{#each documents}}
+            <li>
+                <img src="{{imageref}}" alt="{{title}}" class="img">
+                <h1> {{title}} </h1>
+                <h4> {{date}} </h4>
+                <a href="{{href}}">
+                    Read more
+                </a>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
 </body>
 </html>
