@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Lepe - Admin Login </title>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
+    <link rel="stylesheet" href="../public/style/home.css">
+</head>
+<body>
+    <h1> Lepe Park - Admin Login</h1>
+    <h4> Easy editing with protected access </h4>
+    
+    <form id="login-form">
+    <div class="input-field">
+      <input type="email" id="login-email" required placeholder="email" />
+    </div>
+    <div class="input-field">
+      <input type="password" id="login-password" required placeholder="password" />
+    </div>
+    <button id="button-login" type="submit">
+      <div class="button-text">Login</div>
+    </button>
+    
+  </form>
+
+  <script src="../public/script/login.js"></script>
+</body>
+</html>

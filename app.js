@@ -69,6 +69,19 @@ app.get('/home', (req,res) => {
     })
 })
 
+app.get('/admin/:name', (req, res) => {
+    const name = req.params['name'];
+    const nameList = ['login', 'editor'];
+
+    if (nameList.includes(name)) {
+        res.render(name)
+    } else {
+        res.render('error', {
+            pageName: 'admin/' + name
+        })
+    }
+})
+
 // Response to article request
 // Inputs: - Article's doc folder
 //         - Article's doc name
