@@ -1,0 +1,77 @@
+body {
+    background: linear-gradient(180deg, #939393 0%, #000000 75%);
+    font-family: 'Red Hat Text';
+    color: white;
+    height: 98vh;
+    overflow: hidden;
+}
+
+#header-body {
+    display: flex;
+    margin-top: 2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-item{
+    padding: 2rem;
+    color: black;
+}
+
+img {
+    height: 40vh;
+    width: auto;
+}
+
+h1 {
+    font-size: 6rem;
+    font-weight: bold;
+    margin-bottom: 0rem;
+}
+
+h4 {
+    font-size: 2rem;
+    margin-top: 0rem;
+}
+
+center {
+    padding-top: 2rem;
+}
+
+input {
+    width: 28rem;
+    height: 3rem;
+
+    border: hidden;
+    background: #C4C4C4;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    color: #242423;
+    outline: none;
+
+    font-size: 2rem;
+
+    padding-left: 1rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    margin-bottom: 2rem;
+}
+
+button {
+    width: 29rem;
+    height: 3.1rem;
+
+    border: hidden;
+    background: #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    color: #ffffff;
+    outline: none;
+
+    font-size: 2rem;
+
+    padding-left: 1rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    margin-bottom: 2rem;
+}
