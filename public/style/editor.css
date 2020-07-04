@@ -1,0 +1,54 @@
+body {
+    margin: 0;
+    width: 100%;
+    font-family: 'Red Hat Text';
+}
+
+#header-body {
+    z-index: 10;
+    width: auto;
+    height: auto;
+
+    display: flex;
+    background: #353434;
+
+    padding-top: 0.5rem;
+}
+
+#logo {
+    height: 4rem;
+    width: auto;
+
+    margin-left: 1rem;
+}
+
+#header-buttons {
+    position: absolute;
+    right: 0;
+
+    margin-right: 1rem;
+    margin-top: 0.6rem;
+
+    
+    display: flex;
+    float: right;
+    justify-content: flex-end;
+}
+
+.header-button {
+    width: 8.5rem;
+    height: 2.5rem;
+
+    border: hidden;
+    background: #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    outline: none;
+
+    margin-left: 3rem;
+}
+
+.header-text {
+    font-size: 1rem;
+    color: #FFFFFF;
+}

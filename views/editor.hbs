@@ -6,10 +6,26 @@
     <title> Lepe - Admin Editor </title>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
-    <link rel="stylesheet" href="../public/style/home.css">
+    <link href='https://fonts.googleapis.com/css?family=Red Hat Text' rel='stylesheet'>
+    <link rel="stylesheet" href="../public/style/editor.css">
 </head>
 <body>
-    <h1> Wellcome to the Admin editor</h1>
+    <div id="header-body">
+        <div class="header-item">
+            <img id="logo" src="../public/image/white-logo.png" alt="Lepe park logo" >
+        </div>
+        <div id="header-buttons" class="header-item">
+            <button id="click-cate" class="header-button">
+                <div class="header-text">Categories</div>
+            </button>
+            <button id="click-news" class="header-button">
+                <div class="header-text">News</div>
+            </button>
+            <button id="click-char" class="header-button">
+                <div class="header-text">Accounts</div>
+            </button>
+        </div>
+    </div>
     <button id="logOut"> Log out</button>
     
     <script src="../public/script/editor.js"></script>
