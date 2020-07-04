@@ -28,6 +28,11 @@ var mainApp = {};
                 logOut()
             })
 
+            document.getElementById('click-cate').addEventListener('click', function() {
+                console.log('click')
+                document.getElementById('cate-body').style.visibility = 'visible';
+            })
+
         } else {
             // User not logged in
             window.location.replace("/admin/login");

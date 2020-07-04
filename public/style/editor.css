@@ -5,7 +5,6 @@ body {
 }
 
 #header-body {
-    z-index: 10;
     width: auto;
     height: auto;
 
@@ -36,7 +35,7 @@ body {
 }
 
 .header-button {
-    width: 8.5rem;
+    width: 9.5rem;
     height: 2.5rem;
 
     border: hidden;
@@ -51,4 +50,60 @@ body {
 .header-text {
     font-size: 1rem;
     color: #FFFFFF;
+}
+
+#intro-body{
+    position: absolute;
+    z-index: -1;
+}
+
+.intro {
+    color: #000000;
+    opacity: 0.5;
+    margin-top: 8rem;
+}
+
+#cate-body{
+    position: absolute;
+    z-index: 1;
+}
+
+.body {
+    display: flex; 
+    position: relative;
+}
+
+.bar {
+    width: 19rem;
+    bottom: 0;
+    top: 0;
+
+    min-height: 44rem;
+
+    font-weight: 500;
+    font-size: 1.8rem;
+    
+    background-color: #626262;
+    font-weight: bolder;
+}
+
+.bar-top {
+    background-color: #ABABAB;
+    padding: 0.8rem 1rem 0.8rem 1rem
+}
+
+.bar-norm {
+    font-size: large;
+    padding: 0.8rem 1rem 0.8rem 1rem;
+    outline: none;
+    border: hidden;
+    background-color: #626262;
+}
+
+.black {
+    color: black;
+}
+
+.hidden {
+    visibility: hidden;
 }

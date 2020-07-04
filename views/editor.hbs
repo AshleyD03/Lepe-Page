@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +10,11 @@
     <link href='https://fonts.googleapis.com/css?family=Red Hat Text' rel='stylesheet'>
     <link rel="stylesheet" href="../public/style/editor.css">
 </head>
+
 <body>
     <div id="header-body">
         <div class="header-item">
-            <img id="logo" src="../public/image/white-logo.png" alt="Lepe park logo" >
+            <img id="logo" src="../public/image/white-logo.png" alt="Lepe park logo">
         </div>
         <div id="header-buttons" class="header-item">
             <button id="click-cate" class="header-button">
@@ -24,10 +26,43 @@
             <button id="click-char" class="header-button">
                 <div class="header-text">Accounts</div>
             </button>
+            <button id="logOut">
+                <div class="header-text black">Log out</div>
+            </button>
         </div>
     </div>
-    <button id="logOut"> Log out</button>
-    
+
+    <div id="content-body">
+        <!-- Intro Body -->
+        <div id="intro-body">
+            <div class="intro">
+                Navigate what you want to edit using the top bar
+            </div>
+        </div>
+
+        <!-- Category Body -->
+        <div id="cate-body" class="body category hidden">
+            <div class="bar">
+                <div class="bar-top">
+                    Categories
+                </div>
+                <button class="bar-norm">
+                    This will be auto generated
+                </button>
+            </div>
+
+            <div id="cate-form" class="form">
+                <div id="cate-intro" class="hidden">
+                    <div class="intro">
+                        Just click a category to see what articles it has and start editing
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     <script src="../public/script/editor.js"></script>
 </body>
+
 </html>
