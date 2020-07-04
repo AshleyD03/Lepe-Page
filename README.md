@@ -15,10 +15,10 @@ Jack :
 
 1. Install node.js on your device
 2. Go to overall directory containing app.js
-3. run 'node init'
+3. run 'npm init'
 4. run 'npm install express --save'
 5. run 'npm install firebase-admin --save'
-6. run 'npm install consolidate'
+6. run 'npm install consolidate --save'
 7. Go to firebase console (may need to ask me) and generate a ServiceAccountKey.json
     - If not named that, rename it to 'ServiceAccountKey.json'
 8. then just run 'node app.js' and it should all be working 
