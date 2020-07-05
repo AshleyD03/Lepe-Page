@@ -17,13 +17,13 @@
             <img id="logo" src="../public/image/white-logo.png" alt="Lepe park logo">
         </div>
         <div id="header-buttons" class="header-item">
-            <button id="click-cate" class="header-button">
+            <button id="click-cate" class="header-button" value="category-reveal">
                 <div class="header-text">Categories</div>
             </button>
-            <button id="click-news" class="header-button">
+            <button id="click-news" class="header-button" value="news-reveal">
                 <div class="header-text">News</div>
             </button>
-            <button id="click-char" class="header-button">
+            <button id="click-char" class="header-button" value="accounts-reveal">
                 <div class="header-text">Accounts</div>
             </button>
             <button id="logOut">
@@ -32,35 +32,73 @@
         </div>
     </div>
 
-    <div id="content-body">
-        <!-- Intro Body -->
-        <div id="intro-body">
-            <div class="intro">
-                Navigate what you want to edit using the top bar
-            </div>
+    <!-- Option body - Parts that change there visibility are part of revealer class -->
+    <!-- Intro Body -->
+    <div id="intro-body" class="revealer">
+        <div class="intro">
+            <h1 id="wellcome-msg" class="margin-none"></h1>
+            <h5 class="margin-none"> To the admin console </h5>
         </div>
-
-        <!-- Category Body -->
-        <div id="cate-body" class="body category hidden">
-            <div class="bar">
-                <div class="bar-top">
-                    Categories
-                </div>
-                <button class="bar-norm">
-                    This will be auto generated
-                </button>
-            </div>
-
-            <div id="cate-form" class="form">
-                <div id="cate-intro" class="hidden">
-                    <div class="intro">
-                        Just click a category to see what articles it has and start editing
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
+
+    <!-- Category Body -->
+    <div id="cate-body" class="body category-reveal revealer hidden">
+        <div class="bar">
+            <div class="bar-top">
+                Categories
+            </div>
+            <button class="bar-norm">
+                This will be auto generated
+            </button>
+        </div>
+
+        <div class="form">
+            <div id="cate-intro" class="category-reveal revealer intro-body">
+                <div class="intro">
+                    Just click a category to see what articles it has and start editing
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- News Body -->
+    <div id="news-body" class="body news-reveal revealer hidden">
+        <div class="bar">
+            <div class="bar-top">
+                News
+            </div>
+            <button class="bar-norm">
+                This will be auto generated
+            </button>
+        </div>
+
+        <div class="form">
+            <div id="news-intro" class="news-reveal revealer intro-body">
+                <div class="intro">
+                    Either create a new news article or edit / delete a current one
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account body-->
+    <div id="acco-body" class="body accounts-reveal revealer hidden">
+        <div class="bar">
+            <div class="bar-top">
+                Accounts
+            </div>
+        </div>
+
+        <div class="form">
+            <div id="news-intro" class="intro-body">
+                <div class="intro">
+                    Either create a new news article or edit / delete a current one
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <script src="../public/script/editor.js"></script>
 </body>

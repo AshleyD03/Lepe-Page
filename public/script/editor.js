@@ -20,17 +20,25 @@ var mainApp = {};
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             // User logged in
+
             uid = user.uid;
             console.log(uid)
-            console.log("Wellcome ", user["email"], user["displayName"]); 
+            console.log('Wellcome', user['email'], user['displayName']);
+            document.getElementById('wellcome-msg').innerHTML = ('Wellcome ' + user['displayName']); 
 
             document.getElementById('logOut').addEventListener('click', function() {
                 logOut()
             })
 
-            document.getElementById('click-cate').addEventListener('click', function() {
-                console.log('click')
-                document.getElementById('cate-body').style.visibility = 'visible';
+            Array.from(document.getElementsByClassName('header-button')).forEach(element => {
+                element.addEventListener('click', function() {
+                    Array.from(document.getElementsByClassName('revealer')).forEach(element => {
+                        element.style.visibility = 'hidden';
+                    })
+                    Array.from(document.getElementsByClassName(element.value)).forEach(element => {
+                        element.style.visibility = 'visible'
+                    })
+                })
             })
 
         } else {
