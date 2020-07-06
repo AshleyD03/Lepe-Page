@@ -46,7 +46,6 @@ var mainApp = {};
                         element.style.visibility = visibility;
                     })
                 } else {
-                    console.log("Checking by id")
                     // Else try for single Id
                     var element = document.getElementById(className)
                     if (element != null) {
@@ -127,29 +126,40 @@ var mainApp = {};
   
             // - = - Load News - = -
             var newsBar = document.getElementById('news-bar');
-            readDocOrder('news-articles', 'date', 'desc', null).then(token => {
-                token.forEach(doc => {
-                    if (doc.exists) {
-                        var newBar = document.createElement('button');
-                        newBar.setAttribute('class', 'bar-button');
-                        newBar.setAttribute('value', 'news-edit');
+            function loadNews() {
+                readDocOrder('news-articles', 'date', 'desc', null).then(token => {
+                    token.forEach(doc => {
+                        console.log("load doc")
+                        if (doc.exists) {
+                            var newBar = document.createElement('button');
+                            newBar.setAttribute('class', 'bar-button');
+                            newBar.setAttribute('value', 'news-edit');
 
-                        var title = doc.data()['title']
-                        if (title.length > 25) {
-                            title = title.substr(0, 23) + '...'
+                            var title = doc.data()['title']
+                            if (title.length > 25) {
+                                title = title.substr(0, 23) + '...'
+                            }
+                            newBar.innerHTML = title 
+
+                            newBar.addEventListener('click', function() {
+                                // Later on will change document value to edit
+                                document.getElementById('news-edit-title').innerHTML = 'Edit News Document : ' + title;
+                            })
+                            newsBar.appendChild(newBar);
                         }
-                        newBar.innerHTML = title 
-
-                        newBar.addEventListener('click', function() {
-                            // Later on will change document value to edit
-                            document.getElementById('news-edit-title').innerHTML = 'Edit News Document : ' + title;
-                            console.log("bleh")
-                        })
-                        newsBar.appendChild(newBar);
-                    }
+                    })
+                    // Create switch for all bar buttons after all generated
+                    makeElementSwitch('bar-button', 'hide-form')
                 })
-                // Create switch for all bar buttons after all generated
-                makeElementSwitch('bar-button', 'hide-form')
+            }
+            loadNews()
+            document.getElementById('reload-news').addEventListener('click', function() {
+                // Clear newsbar and re-add barTop
+                const barTop = document.getElementById('news-bar-top');
+                newsBar.innerHTML = '';
+                newsBar.appendChild(barTop);
+                
+                loadNews()
             })
 
         } else {
