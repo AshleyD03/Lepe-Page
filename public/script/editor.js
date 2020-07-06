@@ -60,11 +60,12 @@ var mainApp = {};
                     var button = document.getElementById(queryName)
                     button.addEventListener('click', function() {
                         makeElementVisibility(hiddenQueryName, 'hidden')
-                        makeElementVisibility(element.value, 'visible')
+                        makeElementVisibility(button.value, 'visible')
                     })
                 } else {
                     Array.from(buttons).forEach(element => {
                                         element.addEventListener('click', function() {
+
                                             makeElementVisibility(hiddenQueryName, 'hidden')
                                             makeElementVisibility(element.value, 'visible')
                                         })
@@ -124,7 +125,8 @@ var mainApp = {};
                 return snapshot;
             }
   
-            // - = - Load News - = -
+            // - = - Load News Bar Buttons - = -
+            // Generate button for each article
             var newsBar = document.getElementById('news-bar');
             function loadNews() {
                 readDocOrder('news-articles', 'date', 'desc', null).then(token => {
@@ -139,7 +141,7 @@ var mainApp = {};
                             if (title.length > 25) {
                                 title = title.substr(0, 23) + '...'
                             }
-                            newBar.innerHTML = title 
+                            newBar.innerHTML = title; 
 
                             newBar.addEventListener('click', function() {
                                 // Later on will change document value to edit
@@ -153,6 +155,7 @@ var mainApp = {};
                 })
             }
             loadNews()
+            // Reload button event 
             document.getElementById('reload-news').addEventListener('click', function() {
                 // Clear newsbar and re-add barTop
                 const barTop = document.getElementById('news-bar-top');
@@ -160,6 +163,12 @@ var mainApp = {};
                 newsBar.appendChild(barTop);
                 
                 loadNews()
+            })
+            
+            // Create new document Event
+            makeElementSwitch('add-news', 'hide-form')
+            document.getElementById('add-news').addEventListener('click', function() {
+                console.log('bleh')
             })
 
         } else {
