@@ -112,6 +112,18 @@ body {
     z-index: 3;
 }
 
+#reload-news {
+    margin-left: auto;
+    background-color: inherit;
+    border: none;
+    outline: none;
+}
+
+#reload-img {
+    width: 2.2rem;
+    height: 2.2rem;
+}
+
 .body {
     display: grid;
     width: 100%;
@@ -136,6 +148,9 @@ body {
 }
 
 .bar-top {
+    display: flex;
+    align-items: center;
+
     background-color: #ABABAB;
     padding: 0.8rem 1rem 0.8rem 1rem;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -159,6 +174,10 @@ body {
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
 }
 
+.hide-form { 
+    margin-left: 1rem;
+}
+
 #acco-reset {
     position: absolute;
     z-index: 1;
@@ -173,6 +192,55 @@ body {
     position: absolute;
     z-index: 3;
 }
+
+.title { 
+    font-weight: bolder;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.input{
+    height: 2.4rem;
+    width: 40%;
+    margin-top: 0.2rem;
+
+    font-size: 1.5em;
+    font-weight: lighter;
+    background-color: #ABABAB;
+    border: none;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    outline: none;
+}
+
+.submit {
+    height: 2.6rem;
+    width: 40.5%;
+
+    margin-top: 1rem;
+    background-color: #81DA8F;
+    outline: none;  
+}
+
+.form {
+    width: 70vw;
+}
+
+.grid {
+    display: grid;
+    align-items: center;
+    width: 100%;
+    min-height: max-content;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: 100%;
+}
+
+.input-name {
+    display: flex;
+    margin-right: 2rem;
+    margin-left: auto;
+}
+
 
 .black {
     color: black;

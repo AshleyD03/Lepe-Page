@@ -8,6 +8,8 @@
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Red Hat Text' rel='stylesheet'>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
     <link rel="stylesheet" href="../public/style/editor.css">
 </head>
 
@@ -40,8 +42,8 @@
         <div class="intro">
             <h1 id="wellcome-msg" class="margin-none"></h1>
             <h5 class="margin-none margin-bot"> To the Lepe console </h5>
-            <p> Here you can edit your websites articles and news, and <br> edit admin account settings. Just click one
-                of the categories you <br> wish to editon the top bar. </p>
+            <p> Here you can edit your websites articles, news <br> and admin account settings. Just click one
+                of the categories you <br> wish to edit on the top bar. </p>
         </div>
     </div>
 
@@ -67,9 +69,12 @@
 
     <!-- News Body -->
     <div id="news-body" class="body news-reveal hide-all hidden">
-        <div class="bar">
+        <div id="news-bar" class="bar">
             <div class="bar-top">
                 News
+                <button id="reload-news">
+                    <img id="reload-img" src="../public/image/reload.png" alt="reload news">
+                </button>
             </div>
             <button class="bar-button">
                 This will be auto generated
@@ -77,6 +82,16 @@
         </div>
 
         <div class="form">
+            <div id="news-edit" class="hide-all hide-form">
+                <h1 id="news-edit-title" class="title"> Edit News Document : </h1>
+                <hr>
+            </div>
+
+            <div id="news-create" class="hide-all hideform">
+                <h1 class="title"> Create News Document </h1>
+                <hr>
+            </div>
+
             <div id="news-intro" class="news-reveal hide-all hide-form intro-body">
                 <div class="intro">
                     Either create a new news article or edit / delete a current one
@@ -101,26 +116,52 @@
 
         <div class="form">
             <div id="acco-reset" class="hide-all hide-form">
-                <h1>Send Password Reset</h1>
-                <form id="send-reset-email">
-                    <input type="email" id="email" placeholder="..." required />
-                    <button type="submit"> Send Email</button>
+                <h1 class="title">Send Password Reset</h1>
+                <hr>
+                <form id="send-reset-email" class="form" autocomplete="off">
+                    <div class="grid">
+                        <h2 class="input-name"> Email </h2>
+                        <input type="email" id="sr-email" class="input" required />
+                    </div>
+                    <div class="grid">
+                        <div> </div>
+                        <button type="submit" class="input submit"> Send Email </button>
+                    </div>
                 </form>
             </div>
 
             <div id="acco-make" class="hide-all hide-form">
-                <h1>Create an Account</h1>
-                <form id="create-account">
-                    <input type="email" id="email" required />
-                    <input type="username" id="username" required />
-                    <input type="password" id="password" required  />
-                    <button type="submit"> Create account </button>
+                <h1 class="title">Create an Account</h1>
+                <hr>
+                <form id="create-account" class="form" autocomplete="off">
+                    <div class="grid">
+                        <h2 class="input-name"> Username </h2>
+                        <input type="username" id="ca-username" class="input" required />
+                    </div>
+                    <div class="grid">
+                        <h2 class="input-name"> Email </h2>
+                        <input type="email" id="ca-email" class="input" required />
+                    </div>
+                    <div class="grid">
+                        <h2 class="input-name"> Password </h2>
+                        <input type="password" id="ca-password" class="input" required  />
+                    </div>
+                    <div class="grid">
+                        <div> </div>
+                        <button type="submit" class="input submit"> Create account </button>
+                    </div>
+                    
+                    
+                    
+                    
                 </form>
             </div>
 
-            <div id="acco-intro" class="accounts-reveal hide-all hide-form intro-body">
+            <div id="acco-intro" class="accounts-reveal hide-all hide-form form">
+                <h1 class="title">Wellcome</h1>
+                <hr>
                 <div class="intro">
-                    Here you can send password resets to account<br> emails and make new accounts
+                    Here you can send password resets to account <br> emails and make new accounts
                 </div>
             </div>
         </div>
