@@ -39,12 +39,6 @@ async function readDocOrder(category, orderBy, orderWay, limit) {
     return snapshot
 }
 
-
-// get request / for tests
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/move along.gif'));
-})
-
 // get request for  Home page 
 // Generates: - up to 3 newest articles
 app.get('/home', (req,res) => {
@@ -69,7 +63,7 @@ app.get('/home', (req,res) => {
     })
 })
 
-app.get('/admin/:name', (req, res) => {
+app.get('/console/:name', (req, res) => {
     const name = req.params['name'];
     const nameList = ['login', 'editor'];
 
@@ -77,7 +71,7 @@ app.get('/admin/:name', (req, res) => {
         res.render(name)
     } else {
         res.render('error', {
-            pageName: 'admin/' + name
+            pageName: 'console/' + name
         })
     }
 })
@@ -143,6 +137,13 @@ app.get('/:folder/:name', (req, res) => {
         console.error("Error :", error);
       });
 })
+
+app.get('*', (req, res) => {
+    res.render('error', {
+        pageName: req.path
+    })
+})
+
 
 // Turn on Message
 app.listen(port, () => {

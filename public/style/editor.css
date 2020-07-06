@@ -2,6 +2,16 @@ body {
     margin: 0;
     width: 100%;
     font-family: 'Red Hat Text';
+} 
+
+@keyframes shadow-pulse
+{
+  0% {
+    box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 35px rgba(0, 0, 0, 0);
+  }
 }
 
 #header-body {
@@ -47,22 +57,30 @@ body {
     margin-left: 3rem;
 }
 
+.header-button:hover {
+    animation: shadow-pulse 1s 1;
+}
+
 .header-text {
     font-size: 1rem;
     color: #FFFFFF;
 }
 
 #intro-body {
-    width: 70%;
+    width: 90%;
 }
 
 .margin-none {
     margin: 0rem;
 }
 
+.margin-bot {
+    margin-bottom: 1rem;
+}
+
 .intro-body {
     position: absolute;
-    width: 80%;
+    width: 60%;
     height: 70%;
 
     display: flex;
@@ -113,21 +131,47 @@ body {
     font-weight: 500;
     font-size: 1.8rem;
     
-    background-color: #626262;
+    background-color: #BDBDBD;
     font-weight: bolder;
 }
 
 .bar-top {
     background-color: #ABABAB;
-    padding: 0.8rem 1rem 0.8rem 1rem
+    padding: 0.8rem 1rem 0.8rem 1rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.bar-norm {
-    font-size: large;
-    padding: 0.8rem 1rem 0.8rem 1rem;
+.bar-button {
+    font-size: 1.5rem;
+    font-weight: 100;
     outline: none;
     border: hidden;
-    background-color: #626262;
+    opacity: 0.7;
+
+    margin-right: fill;
+    text-align: left;
+    width: 100%;
+    margin-top: 1rem;
+    padding-left: 1rem;
+    padding-bottom: 0.8rem;
+
+    background-color: inherit;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+}
+
+#acco-reset {
+    position: absolute;
+    z-index: 1;
+}
+
+#acco-make {
+    position: absolute;
+    z-index: 2;
+}
+
+#acco-intro {
+    position: absolute;
+    z-index: 3;
 }
 
 .black {

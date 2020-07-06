@@ -26,24 +26,46 @@ var mainApp = {};
             console.log('Wellcome', user['email'], user['displayName']);
             document.getElementById('wellcome-msg').innerHTML = ('Wellcome ' + user['displayName']); 
 
+            // Logout Button
             document.getElementById('logOut').addEventListener('click', function() {
                 logOut()
             })
 
-            Array.from(document.getElementsByClassName('header-button')).forEach(element => {
-                element.addEventListener('click', function() {
-                    Array.from(document.getElementsByClassName('revealer')).forEach(element => {
-                        element.style.visibility = 'hidden';
+            // Change visibility of a class to a value
+            function makeElementVisibility(className, visibility) {
+                var collection = document.getElementsByClassName(className)
+                
+                if (collection.length > 0) {
+                    // If Elements are found using class iterate through array 
+                    Array.from(collection).forEach(element => {
+                        element.style.visibility = visibility;
                     })
-                    Array.from(document.getElementsByClassName(element.value)).forEach(element => {
-                        element.style.visibility = 'visible'
+                } else {
+                    console.log("Checking by id")
+                    // Else try for single Id
+                    var element = document.getElementById(className)
+                    if (element != null) {
+                        element.style.visibility = visibility
+                    }
+                }
+            }
+
+            // Makes a button make one class invisible and 
+            function makeClassSwitch(buttonClassName, hiddenClassName) {
+                Array.from(document.getElementsByClassName(buttonClassName)).forEach(element => {
+                    element.addEventListener('click', function() {
+                        makeElementVisibility(hiddenClassName, 'hidden')
+                        makeElementVisibility(element.value, 'visible')
                     })
                 })
-            })
+            }
+
+            makeClassSwitch('header-button', 'hide-all')
+            makeClassSwitch('bar-button', 'hide-form')
 
         } else {
             // User not logged in
-            window.location.replace("/admin/login");
+            window.location.replace("/console/login");
         }
     })
 

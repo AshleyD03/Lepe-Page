@@ -24,7 +24,7 @@
         auth.signInWithEmailAndPassword(email, password)
         .then((cred) => {
             console.log(cred)
-            window.location.replace("/admin/editor");
+            window.location.replace("/console/editor");
         })
         .catch(error => alert(error.message));
     })

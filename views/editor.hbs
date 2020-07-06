@@ -12,6 +12,8 @@
 </head>
 
 <body>
+    <!-- Nav bar on top -->
+    <!-- Each buttons value reveals that class -->
     <div id="header-body">
         <div class="header-item">
             <img id="logo" src="../public/image/white-logo.png" alt="Lepe park logo">
@@ -32,28 +34,30 @@
         </div>
     </div>
 
-    <!-- Option body - Parts that change there visibility are part of revealer class -->
+    <!-- Option body - Parts that change there visibility are part of hide-all class -->
     <!-- Intro Body -->
-    <div id="intro-body" class="revealer">
+    <div id="intro-body" class="intro-body hide-all">
         <div class="intro">
             <h1 id="wellcome-msg" class="margin-none"></h1>
-            <h5 class="margin-none"> To the admin console </h5>
+            <h5 class="margin-none margin-bot"> To the Lepe console </h5>
+            <p> Here you can edit your websites articles and news, and <br> edit admin account settings. Just click one
+                of the categories you <br> wish to editon the top bar. </p>
         </div>
     </div>
 
     <!-- Category Body -->
-    <div id="cate-body" class="body category-reveal revealer hidden">
+    <div id="cate-body" class="body category-reveal hide-all hidden">
         <div class="bar">
             <div class="bar-top">
                 Categories
             </div>
-            <button class="bar-norm">
+            <button class="bar-button">
                 This will be auto generated
             </button>
         </div>
 
         <div class="form">
-            <div id="cate-intro" class="category-reveal revealer intro-body">
+            <div id="cate-intro" class="category-reveal hide-all hide-form intro-body">
                 <div class="intro">
                     Just click a category to see what articles it has and start editing
                 </div>
@@ -62,18 +66,18 @@
     </div>
 
     <!-- News Body -->
-    <div id="news-body" class="body news-reveal revealer hidden">
+    <div id="news-body" class="body news-reveal hide-all hidden">
         <div class="bar">
             <div class="bar-top">
                 News
             </div>
-            <button class="bar-norm">
+            <button class="bar-button">
                 This will be auto generated
             </button>
         </div>
 
         <div class="form">
-            <div id="news-intro" class="news-reveal revealer intro-body">
+            <div id="news-intro" class="news-reveal hide-all hide-form intro-body">
                 <div class="intro">
                     Either create a new news article or edit / delete a current one
                 </div>
@@ -82,17 +86,41 @@
     </div>
 
     <!-- Account body-->
-    <div id="acco-body" class="body accounts-reveal revealer hidden">
+    <div id="acco-body" class="body accounts-reveal hide-all hidden">
         <div class="bar">
             <div class="bar-top">
                 Accounts
             </div>
+            <button class="bar-button" value="acco-reset">
+                Reset Password
+            </button>
+            <button class="bar-button" value="acco-make">
+                Make Account
+            </button>
         </div>
 
         <div class="form">
-            <div id="news-intro" class="intro-body">
+            <div id="acco-reset" class="hide-all hide-form">
+                <h1>Send Password Reset</h1>
+                <form id="send-reset-email">
+                    <input type="email" id="email" placeholder="..." required />
+                    <button type="submit"> Send Email</button>
+                </form>
+            </div>
+
+            <div id="acco-make" class="hide-all hide-form">
+                <h1>Create an Account</h1>
+                <form id="create-account">
+                    <input type="email" id="email" required />
+                    <input type="username" id="username" required />
+                    <input type="password" id="password" required  />
+                    <button type="submit"> Create account </button>
+                </form>
+            </div>
+
+            <div id="acco-intro" class="accounts-reveal hide-all hide-form intro-body">
                 <div class="intro">
-                    Either create a new news article or edit / delete a current one
+                    Here you can send password resets to account<br> emails and make new accounts
                 </div>
             </div>
         </div>
