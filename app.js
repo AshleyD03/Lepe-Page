@@ -19,32 +19,30 @@ app.engine('hbs', engines.handlebars);
 app.set('views', './views');
 app.set('view engine', 'hbs');
 
-// Read doc from category
-async function readDoc(docName, category) { 
+async function readDoc(docName, category) {
     const ref = db.collection(category).doc(docName);
     const doc = await ref.get();
-    return doc
-}
-
-// Read docs from a cateorgy in an order with / without limit
-async function readDocOrder(category, orderBy, orderWay, limit) {
+    return doc;
+  }
+  // Read docs from a cateorgy in an order with / without limit
+  async function readDocOrder(category, orderBy, orderWay, limit) {
     var ref;
     if (limit == null) {
-        ref = db.collection(category).orderBy(orderBy, orderWay)
+      ref = db.collection(category).orderBy(orderBy, orderWay);
     } else {
-        ref = db.collection(category).orderBy(orderBy, orderWay).limit(limit)
+      ref = db.collection(category).orderBy(orderBy, orderWay).limit(limit);
     }
-
+  
     const snapshot = await ref.get();
-    return snapshot
-}
-
+    return snapshot;
+  }
+  
 // get request for  Home page 
 // Generates: - up to 3 newest articles
 app.get('/home', (req,res) => {
     res.set('Cache-control', 'public, max-age=30, s-maxage=60');
 
-    readDocOrder('news-articles', 'date', 'asc', 3).then(token => {
+    readDocOrder('news-articles', 'date', 'desc', 3).then(token => {
         var renderItems = {
             documents: []
         };
@@ -62,7 +60,7 @@ app.get('/home', (req,res) => {
         res.render('home', renderItems)
     })
 })
-
+ 
 app.get('/console/:name', (req, res) => {
     const name = req.params['name'];
     const nameList = ['login', 'editor'];
@@ -147,5 +145,5 @@ app.get('*', (req, res) => {
 
 // Turn on Message
 app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}/home`)
+    console.log(`Server listening at http://localhost:${port}/console/login`)
 })
