@@ -52,6 +52,9 @@
         <div class="bar">
             <div class="bar-top">
                 Categories
+                <button id="create-article" class="icon-button" value='cate-create'>
+                    <img class="icon-img" src="../public/image/add.png" alt="create a new article">
+                </button>
             </div>
             <button class="bar-button">
                 This will be auto generated
@@ -59,10 +62,34 @@
         </div>
 
         <div class="form">
+            <!-- Intro Message -->
             <div id="cate-intro" class="category-reveal hide-all hide-form intro-body">
                 <div class="intro">
                     Just click a category to see what articles it has and start editing
                 </div>
+            </div>
+
+            <!-- Create Article -->
+            <div id="cate-create" class="hide-all hide-form">
+                <h1 class="title"> Create Article : </h1>
+                <hr>
+                <form class="form">
+                    <div class="grid">
+                        <h2 class="input-name"> Categories </h2>
+                        <div class="input">
+                            <input type="checkbox" id="na-things" class="na-check" value="Things to Do">
+                            <label for="na-things"> Things to Do </label>
+                            <input type="checkbox" id="na-facilities" class="na-check" value="Facilities">
+                            <label for="na-facilities"> Facilities </label>
+                            <input type="checkbox" id="na-volunteering" class="na-check" value="Volunteering">
+                            <label for="na-volunteering"> Volunteering </label>
+                            <input type="checkbox" id="na-access" class="na-check" value="Accesibility">
+                            <label for="na-acess"> Accesibility </label>
+                            <input type="checkbox" id="na-group" class="na-check" value="Group Visits">
+                            <label for="na-group"> Group Visits </label>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -71,8 +98,8 @@
     <div id="news-body" class="body news-reveal hide-all hidden">
         <div id="news-bar" class="bar">
             <div id="news-bar-top" class="bar-top">
-                News
-                <button id="add-news" class="icon-button" value='news-add'>
+                News 
+                <button id="add-news" class="icon-button" value='news-form'>
                     <img class="icon-img" src="../public/image/add.png" alt="create a new news page">
                 </button>
                 <button id="reload-news" class="icon-button">
@@ -82,22 +109,41 @@
         </div>
 
         <div class="form">
-            <div id="news-edit" class="hide-all hide-form">
-                <h1 id="news-edit-title" class="title"> Edit News Document : </h1>
+            <!-- News Form -->
+            <div id="news-form" class="hide-all hide-form">
+                <h1 id="news-edit-title" class="title"> Create News Article </h1>
                 <hr>
-                <form class="form">
-                    finish this later
+                <form id="news-editing-or-creating-form" class="form">
+                    <div class="grid">
+                        <h2 class="input-name"> Title </h2>
+                        <input type="title" id="na-title" class="input" required />
+                    </div>
+                    <div class="grid space-under">
+                        <h2 class="input-name"> Teaser Image </h2>
+                        <div class="img-line input h-8rem">
+                            <img id="na-teaser-image" src="../public/image/empty.png" alt="Img of what is currently ready to upload" class="img-prev">
+                            <input type="file" id="na-teaser-file" required />
+                        </div>
+                    </div> 
+                    <div class="grid space-under">
+                        <h2 class="input-name"> Article Text </h2>
+                        <textarea type="text" id="na-article-text" class="input w-full h-12rem" required></textarea>
+                    </div> 
+                    <div class="grid space-under">
+                        <h2 class="input-name"> Article Image </h2>
+                        <div class="img-line input h-8rem">
+                            <img id="na-article-image" src="../public/image/empty.png" alt="Img of what is currently ready to upload" class="img-prev">
+                            <input type="file" id="na-article-file" required />
+                        </div>
+                    </div>
+                    <div class="grid space-under">
+                        <div></div>
+                        <button type="submit" class="input submit"> Upload News Article </button>
+                    </div>
                 </form>
             </div>
 
-            <div id="news-add" class="hide-all hide-form">
-                <h1 class="title"> Create News Document </h1>
-                <hr>
-                <form class="form">
-                    and this 
-                </form>
-            </div>
-
+            <!-- Intro Message -->
             <div id="news-intro" class="news-reveal hide-all hide-form">
                 <h1 class="title">Wellcome</h1>
                 <hr>
@@ -123,6 +169,7 @@
         </div>
 
         <div class="form">
+            <!-- Reset Password -->
             <div id="acco-reset" class="hide-all hide-form">
                 <h1 class="title">Send Password Reset</h1>
                 <hr>
@@ -138,6 +185,7 @@
                 </form>
             </div>
 
+            <!-- Create Account -->
             <div id="acco-make" class="hide-all hide-form">
                 <h1 class="title">Create an Account</h1>
                 <hr>
@@ -161,6 +209,7 @@
                 </form>
             </div>
 
+            <!-- Intro Message -->
             <div id="acco-intro" class="accounts-reveal hide-all hide-form form">
                 <h1 class="title">Wellcome</h1>
                 <hr>

@@ -126,6 +126,14 @@ var mainApp = {};
             }
   
             // - = - Load News Bar Buttons - = -
+            // Preset for News Form
+            const newsForm = document.querySelector('#news-editing-or-creating-form');
+            const newsTitle = document.getElementById('news-edit-title');
+            // Tells form loader what to do with form
+            var newsFormStatus = {'use' : null,
+                                  'replacing' : null}; 
+            
+
             // Generate button for each article
             var newsBar = document.getElementById('news-bar');
             function loadNews() {
@@ -135,7 +143,7 @@ var mainApp = {};
                         if (doc.exists) {
                             var newBar = document.createElement('button');
                             newBar.setAttribute('class', 'bar-button');
-                            newBar.setAttribute('value', 'news-edit');
+                            newBar.setAttribute('value', 'news-form');
 
                             var title = doc.data()['title']
                             if (title.length > 25) {
@@ -145,7 +153,9 @@ var mainApp = {};
 
                             newBar.addEventListener('click', function() {
                                 // Later on will change document value to edit
-                                document.getElementById('news-edit-title').innerHTML = 'Edit News Document : ' + title;
+                                newsTitle.innerHTML = 'Edit News Article : ' + title;
+                                newsFormStatus = {'use' : 'replace',
+                                                  'replacing' : doc.data()['href']}
                             })
                             newsBar.appendChild(newBar);
                         }
@@ -168,7 +178,19 @@ var mainApp = {};
             // Create new document Event
             makeElementSwitch('add-news', 'hide-form')
             document.getElementById('add-news').addEventListener('click', function() {
-                console.log('bleh')
+                newsTitle.innerHTML = 'Create News Article';
+                newsFormStatus = {'use' : 'create'}
+            })
+
+            newsForm.addEventListener('submit', (token) => {
+                token.preventDefault();
+
+                const title = newsFornm['na-title'].value;
+                const teaserImage = newsForm['na-teaser-image'].value;
+                const articleText = newsForm['na-article-text'].value;
+                const articleImage = newsForm['na-article-file'].value;
+
+                // Submit under newsFormStatus Params
             })
 
         } else {

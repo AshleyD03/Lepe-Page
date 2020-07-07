@@ -58,14 +58,9 @@ body {
     margin-left: 3rem;
 }
 
-#news-edit {
+#news-form {
     position: absolute;
     z-index: 1;
-}
-
-#news-add {
-    position: absolute;
-    z-index: 2;
 }
 
 #news-intro {
@@ -219,7 +214,8 @@ body {
 }
 
 .input{
-    height: 2.4rem;
+    min-height: 2.4rem;
+    height: fit-content;
     width: 40%;
     margin-top: 0.2rem;
 
@@ -260,6 +256,37 @@ body {
     margin-left: auto;
 }
 
+.img-line {
+    display: flex;
+    align-items: center;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.space-under {
+    margin-bottom: 1rem;
+}
+
+.img-prev {
+    height: 6rem;
+    width: 6rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.h-6rem {
+    height: 6rem;
+}
+
+.h-8rem {
+    height: 8rem;
+}
+
+.h-12rem {
+    height: 12rem;
+}
 
 .black {
     color: black;
