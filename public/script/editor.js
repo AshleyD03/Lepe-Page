@@ -16,6 +16,7 @@ var mainApp = {};
     firebase.initializeApp(firebaseConfig);
     auth = firebase.auth();
     db = firebase.firestore();
+    storage = firebase.storage();
 
     var uid = null;
   
@@ -112,6 +113,7 @@ var mainApp = {};
                 const doc = await ref.get();
                 return doc;
             }
+
             // Read docs from a cateorgy in an order with / without limit
             async function readDocOrder(category, orderBy, orderWay, limit) {
                 var ref;
@@ -129,18 +131,21 @@ var mainApp = {};
             // Preset for News Form
             const newsForm = document.querySelector('#news-editing-or-creating-form');
             const newsTitle = document.getElementById('news-edit-title');
+            const newsImageDisplay = document.getElementById('na-article-image');
+
             // Tells form loader what to do with form
             var newsFormStatus = {'use' : null,
-                                  'replacing' : null}; 
-            
+                                  'edit-title' : null,
+                                  'edit-file' : null}; 
+            var newsCurrentFile = null;
 
             // Generate button for each article
             var newsBar = document.getElementById('news-bar');
             function loadNews() {
                 readDocOrder('news-articles', 'date', 'desc', null).then(token => {
                     token.forEach(doc => {
-                        console.log("load doc")
                         if (doc.exists) {
+
                             var newBar = document.createElement('button');
                             newBar.setAttribute('class', 'bar-button');
                             newBar.setAttribute('value', 'news-form');
@@ -152,10 +157,16 @@ var mainApp = {};
                             newBar.innerHTML = title; 
 
                             newBar.addEventListener('click', function() {
-                                // Later on will change document value to edit
+                                // Reset values for a document replace
+                                
                                 newsTitle.innerHTML = 'Edit News Article : ' + title;
-                                newsFormStatus = {'use' : 'replace',
-                                                  'replacing' : doc.data()['href']}
+                                newsFormStatus['use'] = 'edit';
+                                newsFormStatus['edit-title'] = doc.data()['title'];
+                                newsFormStatus['edit-file'] = doc.data()['fileName'];
+                                newsForm['na-article-file'].value = '';
+                                newsCurrentFile = null;
+                                newsImageDisplay.src = doc.data()['imageref'];
+                                newsForm['na-article-file'].value = 'previous';
                             })
                             newsBar.appendChild(newBar);
                         }
@@ -171,27 +182,99 @@ var mainApp = {};
                 const barTop = document.getElementById('news-bar-top');
                 newsBar.innerHTML = '';
                 newsBar.appendChild(barTop);
-                
                 loadNews()
             })
             
             // Create new document Event
             makeElementSwitch('add-news', 'hide-form')
+            // Add news button event
             document.getElementById('add-news').addEventListener('click', function() {
+                // Reset values for a new document event
                 newsTitle.innerHTML = 'Create News Article';
-                newsFormStatus = {'use' : 'create'}
+                newsFormStatus['use'] = 'create';
+                newsCurrentFile = null;
+                newsForm['na-article-file'].value = '';
+
+                newsImageDisplay.src = '../public/image/empty.png';
+            })
+
+            // Listen for file change - if valid make input filled so form can be accepted and change value of file holder variable
+            newsForm['na-article-file'].addEventListener('change', (e) => {
+                var newFile = e.target.files[0];
+                const fileTypes = ['.gif', '.jpg', '.png'];
+                var confirm;
+
+                fileTypes.forEach(fileType => {
+                    if (newFile.name.includes(fileType)) {
+                        console.log(fileType)
+                        confirm = true;
+                    }
+                })
+
+                if (confirm == true) {
+                    newsImageDisplay.src = URL.createObjectURL(newFile);
+                    newsCurrentFile = newFile;
+                } else {
+                    alert('Sorry but that file type is invalid, we only accept : ' + fileTypes)
+                    newsForm['na-article-file'].value = '';
+                }
             })
 
             newsForm.addEventListener('submit', (token) => {
                 token.preventDefault();
 
-                const title = newsFornm['na-title'].value;
-                const teaserImage = newsForm['na-teaser-image'].value;
-                const articleText = newsForm['na-article-text'].value;
-                const articleImage = newsForm['na-article-file'].value;
+                const title = newsForm['na-title'].value;
+                const text = newsForm['na-article-text'].value;
+                const file = newsCurrentFile;
+                //const image = ;
+                
+                // If update delete original document
+                if (newsFormStatus['use'] == 'edit') {
+                    readDoc(newsFormStatus['edit-title'], 'news-articles').then(token => {
 
-                // Submit under newsFormStatus Params
+                    })
+                    db.collection('news-articles').doc(newsFormStatus['edit-title']).delete().then(function() {
+                        storageRef.child('news/'+newsFormStatus['edit-file']).then( function() {
+                            createNews(title, text, file)
+                        })
+                    })
+                } else {
+                    createNews(title, text, file)
+                }
             })
+
+            // Create new News form and upload image
+            async function createNews(title, text, file) {
+                // Upload Image 
+                const storageRef = storage.ref('news/' + file.name);
+                var task = storageRef.put(file)
+
+                task.on(
+                    'state_changed',
+                    function progress(snapshot) {
+                    },
+                    function error(error) {
+                        console.error('Error: ' + error)
+                    },
+                    function complete () {
+                        storageRef.getDownloadURL()
+                            .then(function (url) {
+                            // Then create Document
+                            db.collection('news-articles').doc(title).set({
+                                date: firebase.firestore.FieldValue.serverTimestamp(),
+                                href: ('/' + 'news-articles/' + title),
+                                imageref: url,
+                                text: text,
+                                title: title,
+                                fileName: file.name
+                            })
+                        }).catch(function (error) {
+                            console.error(error)
+                        })
+                    }
+                )
+            }
+
 
         } else {
             // User not logged in

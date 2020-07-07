@@ -9,7 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Red Hat Text' rel='stylesheet'>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-storage.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
     <link rel="stylesheet" href="../public/style/editor.css">
 </head>
 
@@ -119,13 +119,6 @@
                         <input type="title" id="na-title" class="input" required />
                     </div>
                     <div class="grid space-under">
-                        <h2 class="input-name"> Teaser Image </h2>
-                        <div class="img-line input h-8rem">
-                            <img id="na-teaser-image" src="../public/image/empty.png" alt="Img of what is currently ready to upload" class="img-prev">
-                            <input type="file" id="na-teaser-file" required />
-                        </div>
-                    </div> 
-                    <div class="grid space-under">
                         <h2 class="input-name"> Article Text </h2>
                         <textarea type="text" id="na-article-text" class="input w-full h-12rem" required></textarea>
                     </div> 
@@ -138,7 +131,7 @@
                     </div>
                     <div class="grid space-under">
                         <div></div>
-                        <button type="submit" class="input submit"> Upload News Article </button>
+                        <button id="news-submit" type="submit" class="input submit"> Upload News Article </button>
                     </div>
                 </form>
             </div>
