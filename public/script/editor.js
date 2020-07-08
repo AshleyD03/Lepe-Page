@@ -183,13 +183,16 @@ var mainApp = {};
                 })
             }
             loadNews()
-            // Reload button event 
-            document.getElementById('reload-news').addEventListener('click', function() {
+            function reloadNews() {
                 // Clear newsbar and re-add barTop
                 const barTop = document.getElementById('news-bar-top');
                 newsBar.innerHTML = '';
                 newsBar.appendChild(barTop);
                 loadNews()
+            }
+            // Reload button event 
+            document.getElementById('reload-news').addEventListener('click', function() {
+                reloadNews()
             })
             
             // Create new document Event
@@ -204,6 +207,8 @@ var mainApp = {};
                 // Reset values for a new document event
                 newsFormStatus['use'] = 'create';
                 newsCurrentFile = null;
+                newsForm['na-title'].value = '';
+                newsForm['na-article-text'].value = '';
                 newsForm['na-article-file'].value = '';
                 newsForm['na-article-file'].required = true;
 
@@ -213,7 +218,7 @@ var mainApp = {};
             // Listen for file change - if valid make input filled so form can be accepted and change value of file holder variable
             newsForm['na-article-file'].addEventListener('change', (e) => {
                 var newFile = e.target.files[0];
-                const fileTypes = ['.gif', '.jpg', '.png'];
+                const fileTypes = ['.gif', '.jpg', '.png','.PNG','.JPG','.GIF'];
                 var confirm;
 
                 fileTypes.forEach(fileType => {
@@ -261,11 +266,9 @@ var mainApp = {};
                             console.log(oldData)
                             createNews(title, text, file, imgSame, oldData).then(function() {
                                 newsSubmit.style.backgroundColor = '#0EB206';
-                                loadNews()
-
                                 // Delete old image if not using same
                                 if (imgSame != true) {
-                                    storage.ref.child('news/' + oldData['fileName']).delete()
+                                    storage.ref().child('news/' + oldData['fileName']).delete()
                                 } 
 
                                 alert('Edited News article : ' + title) 
@@ -278,7 +281,6 @@ var mainApp = {};
                 } else {
                     createNews(title, text, file, null, null)
                     newsSubmit.style.backgroundColor = '#0EB206';
-                    loadNews()
                     alert('Created News article : ' + title)
                 }
             })
@@ -286,9 +288,10 @@ var mainApp = {};
             // Create new News form and upload image
             async function createNews(title, text, file, similar, oldData) {
                 // If Similar image no on Upload Image
-                if (similar != true) {
+                if (similar != true) {  
                     const storageRef = storage.ref('news/' + file.name);
-                    var task = storageRef.put(file)
+                    
+                    var task = storageRef.put(file);
                     task.on(
                         'state_changed',
                         function progress(snapshot) {
@@ -299,28 +302,34 @@ var mainApp = {};
                         function complete () {
                             storageRef.getDownloadURL()
                                 .then(function (url) {
-                                // Then create Document
-                                const date = firebase.firestore.FieldValue.serverTimestamp()
+                                
 
                                 // Edits if editing and has similar time
                                 if (similar != null) {
-                                    date = oldData['time'];
+                                    const date = oldData['time'];
+                                    var imageref = String(url);
                                     if (similar == true) {
                                         imageref = oldData['imageref']
                                     }
-                                }
-
-                                db.collection('news-articles').doc(title).set({
-                                    date: date,
+                                    db.collection('news-articles').doc(title).set({
+                                        date: oldData['time'],
+                                        href: ('/' + 'news-articles/' + title),
+                                        imageref: imageref,
+                                        text: text,
+                                        title: title,
+                                        fileName: file.name
+                                    })
+                                } else {
+                                   db.collection('news-articles').doc(title).set({
+                                    date: firebase.firestore.FieldValue.serverTimestamp(),
                                     href: ('/' + 'news-articles/' + title),
-                                    imageref: url,
+                                    imageref: String(url),
                                     text: text,
                                     title: title,
                                     fileName: file.name
-                                })
-                                .then(function() {
-                                    loadNews()
-                                })
+                                    }) 
+                                }
+                                
                             }).catch(function (error) {
                                 console.error(error)
                             })
@@ -335,7 +344,7 @@ var mainApp = {};
                         title: title,
                         fileName: oldData['imageref']
                     }).then(function() {
-                        loadNews()
+                        reloadNews()
                     })
                 }
             }
