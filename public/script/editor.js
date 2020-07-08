@@ -132,6 +132,7 @@ var mainApp = {};
             const newsForm = document.querySelector('#news-editing-or-creating-form');
             const newsTitle = document.getElementById('news-edit-title');
             const newsImageDisplay = document.getElementById('na-article-image');
+            const newsSubmit = document.getElementById('news-submit');
 
             // Tells form loader what to do with form
             var newsFormStatus = {'use' : null,
@@ -157,16 +158,22 @@ var mainApp = {};
                             newBar.innerHTML = title; 
 
                             newBar.addEventListener('click', function() {
-                                // Reset values for a document replace
-                                
+                                // Clean form Style
+                                newsSubmit.disabled = false;
+                                newsSubmit.style.backgroundColor = '#81DA8F';
                                 newsTitle.innerHTML = 'Edit News Article : ' + title;
+                                
+                                // Set values for a document replace      
                                 newsFormStatus['use'] = 'edit';
                                 newsFormStatus['edit-title'] = doc.data()['title'];
                                 newsFormStatus['edit-file'] = doc.data()['fileName'];
-                                newsForm['na-article-file'].value = '';
                                 newsCurrentFile = null;
                                 newsImageDisplay.src = doc.data()['imageref'];
-                                newsForm['na-article-file'].value = 'previous';
+
+                                newsForm['na-title'].value = doc.data()['title'];
+                                newsForm['na-article-text'].value = doc.data()['text'];
+                                newsForm['na-article-file'].value = '';
+                                newsForm['na-article-file'].required = false;
                             })
                             newsBar.appendChild(newBar);
                         }
@@ -189,11 +196,16 @@ var mainApp = {};
             makeElementSwitch('add-news', 'hide-form')
             // Add news button event
             document.getElementById('add-news').addEventListener('click', function() {
-                // Reset values for a new document event
+                // Clean form style
+                newsSubmit.style.backgroundColor = '#81DA8F';
+                newsSubmit.disabled = false;
                 newsTitle.innerHTML = 'Create News Article';
+                
+                // Reset values for a new document event
                 newsFormStatus['use'] = 'create';
                 newsCurrentFile = null;
                 newsForm['na-article-file'].value = '';
+                newsForm['na-article-file'].required = true;
 
                 newsImageDisplay.src = '../public/image/empty.png';
             })
@@ -220,8 +232,11 @@ var mainApp = {};
                 }
             })
 
+            // Submit Form
             newsForm.addEventListener('submit', (token) => {
                 token.preventDefault();
+                newsSubmit.disabled = true;
+                newsSubmit.style.backgroundColor = '#FF7715';
 
                 const title = newsForm['na-title'].value;
                 const text = newsForm['na-article-text'].value;
@@ -230,49 +245,99 @@ var mainApp = {};
                 
                 // If update delete original document
                 if (newsFormStatus['use'] == 'edit') {
-                    readDoc(newsFormStatus['edit-title'], 'news-articles').then(token => {
+                    // Check if no change image
+                    imgSame = false;
+                    if (newsForm['na-article-file'].value == '') {
+                        imgSame = true;
+                    }
 
+                    // Get old data for similarities
+                    readDoc(newsFormStatus['edit-title'], 'news-articles').then(token => {
+                        const oldData = token.data();
+                        console.log(oldData)
+
+                        // Delete old artilce and then create new
+                        db.collection('news-articles').doc(newsFormStatus['edit-title']).delete().then(function() {
+                            console.log(oldData)
+                            createNews(title, text, file, imgSame, oldData).then(function() {
+                                newsSubmit.style.backgroundColor = '#0EB206';
+                                loadNews()
+
+                                // Delete old image if not using same
+                                if (imgSame != true) {
+                                    storage.ref.child('news/' + oldData['fileName']).delete()
+                                } 
+
+                                alert('Edited News article : ' + title) 
+                            })
+                            
+                        }) 
                     })
-                    db.collection('news-articles').doc(newsFormStatus['edit-title']).delete().then(function() {
-                        storageRef.child('news/'+newsFormStatus['edit-file']).then( function() {
-                            createNews(title, text, file)
-                        })
-                    })
+
+                    
                 } else {
-                    createNews(title, text, file)
+                    createNews(title, text, file, null, null)
+                    newsSubmit.style.backgroundColor = '#0EB206';
+                    loadNews()
+                    alert('Created News article : ' + title)
                 }
             })
 
             // Create new News form and upload image
-            async function createNews(title, text, file) {
-                // Upload Image 
-                const storageRef = storage.ref('news/' + file.name);
-                var task = storageRef.put(file)
+            async function createNews(title, text, file, similar, oldData) {
+                // If Similar image no on Upload Image
+                if (similar != true) {
+                    const storageRef = storage.ref('news/' + file.name);
+                    var task = storageRef.put(file)
+                    task.on(
+                        'state_changed',
+                        function progress(snapshot) {
+                        },
+                        function error(error) {
+                            console.error('Error: ' + error)
+                        },
+                        function complete () {
+                            storageRef.getDownloadURL()
+                                .then(function (url) {
+                                // Then create Document
+                                const date = firebase.firestore.FieldValue.serverTimestamp()
 
-                task.on(
-                    'state_changed',
-                    function progress(snapshot) {
-                    },
-                    function error(error) {
-                        console.error('Error: ' + error)
-                    },
-                    function complete () {
-                        storageRef.getDownloadURL()
-                            .then(function (url) {
-                            // Then create Document
-                            db.collection('news-articles').doc(title).set({
-                                date: firebase.firestore.FieldValue.serverTimestamp(),
-                                href: ('/' + 'news-articles/' + title),
-                                imageref: url,
-                                text: text,
-                                title: title,
-                                fileName: file.name
+                                // Edits if editing and has similar time
+                                if (similar != null) {
+                                    date = oldData['time'];
+                                    if (similar == true) {
+                                        imageref = oldData['imageref']
+                                    }
+                                }
+
+                                db.collection('news-articles').doc(title).set({
+                                    date: date,
+                                    href: ('/' + 'news-articles/' + title),
+                                    imageref: url,
+                                    text: text,
+                                    title: title,
+                                    fileName: file.name
+                                })
+                                .then(function() {
+                                    loadNews()
+                                })
+                            }).catch(function (error) {
+                                console.error(error)
                             })
-                        }).catch(function (error) {
-                            console.error(error)
-                        })
-                    }
-                )
+                        }  
+                    )
+                } else {
+                    db.collection('news-articles').doc(title).set({
+                        date: oldData['date'],
+                        href: ('/' + 'news-articles/' + title),
+                        imageref: oldData['imageref'],
+                        text: text,
+                        title: title,
+                        fileName: oldData['imageref']
+                    }).then(function() {
+                        loadNews()
+                    })
+                }
             }
 
 
