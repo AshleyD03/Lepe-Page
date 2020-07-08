@@ -7,6 +7,8 @@
 }
 body {
   font-family: Red Hat Text;
+  background: linear-gradient(180deg, #116aef 29.17%, #f5c800 100%) no-repeat;
+  background-size: cover;
 }
 nav {
   background: #12192b;
@@ -37,11 +39,12 @@ nav ul li a {
   border-radius: 7px;
   text-decoration: none;
 }
-a.active,a:hover {
-  background: #C4C4C4;
+a.active,
+a:hover {
+  background: #c4c4c4;
   border-radius: 7px;
   color: black;
-  transition: .5s;
+  transition: 0.5s;
   text-decoration: none;
 }
 .checkbtn {
@@ -77,7 +80,7 @@ a.active,a:hover {
     top: 80px;
     left: -100%;
     text-align: center;
-    transition: all .5s;
+    transition: all 0.5s;
   }
   nav ul li {
     display: block;
@@ -87,7 +90,8 @@ a.active,a:hover {
   nav ul li a {
     font-size: 20px;
   }
-  a:hover,a:active {
+  a:hover,
+  a:active {
     background: none;
     color: #12192b;
   }
@@ -95,40 +99,57 @@ a.active,a:hover {
     left: 0;
   }
 }
-section {
-  background: linear-gradient(180deg, #116AEF 29.17%, #F5C800 100%) no-repeat;
-  background-size: cover;
-  height: calc(100vh - 80px);
-}
-.container {
-  width: 90%;
-  overflow: hidden;
-  background: white;
-  margin: 40px auto;
+
+.card {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  font-family: Red Hat Text;
+  align-content: center;
+  float: none;
 }
-.container ul li {
-  list-style: none;
-  float: left;
-  width: 20%;
-  height: 300px;
-  background: #116AEF;
-  margin: 40px 30px 0px 40px;
+btn btn-primary {
+  background: #F5C800;
+  color: #12192b;
+  font-family: Red Hat Text;
+  align-content: center;
 }
-.container ul li :hover {
-  opacity: 0.9;
+.card-title {
+  font-weight: bold;
+  font-family: Red Hat Text;
 }
-.container ul li .title {
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  background: yellowgreen;
-  text-align: white;
+.card-img {
+  position: absolute;
+width: 175px;
+height: 175px;
+
+background: url(image.png);
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
 }
-@media screen and (max-width:1200px) {
-  .container ul li {
-    width: 40%;
-    margin: 20px;
-  }
+@media (min-width: 400px) {
+
+}
+.card-text {
+  font-family: Red Hat Text;
+  text-align: center;
+}
+.card-footer {
+  font-family: Red Hat Text;
+  font-size: 16px;
+}
+.btn-primary {
+  background: #F5C800;
+  color: #12192b;
+  outline-color: none;
+}
+.card-img-top {
+  height: 280px;
+}
+.footer-image {
+  size: 5rem;
 }
